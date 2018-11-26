@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.primeton.ygq.demo.dao.OrganizationMapper" >
+  <resultMap id="BaseResultMap" type="com.primeton.ygq.demo.entity.Organization" >
+    <constructor >
+      <idArg column="org_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="org_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="parent_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    org_id, org_name, parent_id
+  </sql>
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from demo_organization
+    where org_id = #{orgId,jdbcType=INTEGER}
+  </select>
+  <delete id="delete" parameterType="java.lang.Integer" >
+    delete from demo_organization
+    where org_id = #{orgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.primeton.ygq.demo.entity.Organization" useGeneratedKeys="true" keyProperty="orgId" >
+    insert into demo_organization (org_name,parent_id
+      )
+    values ( #{orgName,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}
+      )
+  </insert>
+
+  <update id="update" parameterType="com.primeton.ygq.demo.entity.Organization" >
+    update demo_organization
+    set org_name = #{orgName,jdbcType=VARCHAR},
+    <if test="parentId != null and parentId != ''">
+      parent_id= #{parentId,jdbcType=INTEGER}
+    </if>
+    where org_id = #{orgId,jdbcType=INTEGER}
+  </update>
+
+  <select id="query" parameterType="string" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from demo_organization
+    where org_name =#{orgName}
+  </select>
+
+  <select id="queryOrganizationUsers" parameterType="int"  resultType="com.primeton.ygq.demo.entity.User">
+    SELECT b.id,b.password,a.org_id as orgId,a.org_name as orgName,b.username FROM demo_organization AS a INNER JOIN
+    demo_user as b ON  a.org_id =b.org_id
+   AND a.org_id=#{orgId,jdbcType=INTEGER}
+  </select>
+
+  <select id="queryOrganizationChildrens"   resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from demo_organization WHERE 1=1
+    and parent_id=#{parentId}
+  </select>
+
+  <select id="queryOrganizations"   resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from demo_organization
+  </select>
+</mapper>
