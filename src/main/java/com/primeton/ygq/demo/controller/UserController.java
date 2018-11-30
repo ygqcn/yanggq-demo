@@ -111,14 +111,14 @@ public class UserController {
 	@ApiOperation(value = "分页查询", response = Response.class)
 	@ApiImplicitParams({ @ApiImplicitParam(value = "起始页数", name = "pageIndex", dataType = "int", required = true),
 			@ApiImplicitParam(value = "每页数量", name = "pageSize", dataType = "int", required = true),
-			@ApiImplicitParam(value = "用户名称", name = "userName", dataType = "String", required = true),
+			@ApiImplicitParam(value = "用户名称", name = "username", dataType = "String", required = true),
 			@ApiImplicitParam(value = "组织id", name = "orgId", dataType = "int", required = true),
 
 	})
 	@GetMapping
-	public Response<PageInfo> queryUsers(Integer pageIndex, Integer pageSize, String userName, Integer orgId)
+	public Response<PageInfo> queryUsers(Integer pageIndex, Integer pageSize, String username, Integer orgId)
 			throws DemoException {
-		return userService.queryUsers(pageIndex, pageSize, userName, orgId);
+		return userService.queryUsers(pageIndex, pageSize, username, orgId);
 	}
 
 	/**
@@ -133,6 +133,7 @@ public class UserController {
 	@ApiImplicitParams({ @ApiImplicitParam(value = "用户对象", name = "user", dataType = "User", required = true), })
 	@PostMapping(value = "/actions/login")
 	public Response<User> login(HttpSession session, @RequestBody User user) throws DemoException {
+		session.setAttribute("User", user);
 		return userService.login(session, user);
 	}
 }

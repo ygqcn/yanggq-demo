@@ -17,11 +17,21 @@ public class User implements Serializable {
 	private String password;
 	@ApiModelProperty("用户分组id")
 	private Integer orgId;
+	@ApiModelProperty("分组名称")
+	private String orgName;
 
 	@Override
 	public String toString() {
-		return "User{" + "id=" + id + ", username='" + username + '\'' + ", password='" + password + '\'' + ", orgId="
-				+ orgId + '}';
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", orgId=" + orgId
+				+ ", orgName=" + orgName + "]";
+	}
+
+	public User(Integer id, String username, String password, Integer orgId, String orgName) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.orgId = orgId;
+		this.orgName = orgName;
 	}
 
 	public User(Integer id, String username, String password, Integer orgId) {
@@ -67,4 +77,11 @@ public class User implements Serializable {
 		this.orgId = orgId;
 	}
 
+	public String getOrgName() {
+		return orgName;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
 }

@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
 	 * @throws DemoException
 	 */
 	@Override
-	public Response<PageInfo> queryUsers(Integer pageIndex, Integer pageSize, String userName, Integer orgId)
+	public Response<PageInfo> queryUsers(Integer pageIndex, Integer pageSize, String username, Integer orgId)
 			throws DemoException {
 		if (EmptyUtils.isEmpty(pageIndex)) {
 			throw new DemoException(HttpStatus.INTERNAL_SERVER_ERROR, ResponseCode.PARAM_NOT_NULL.getCode(),
@@ -133,7 +133,7 @@ public class UserServiceImpl implements UserService {
 			pageSize = 10;
 		}
 		PageHelper.startPage(pageIndex, pageSize);
-		List<User> users = userMapper.queryUsers(userName, orgId);
+		List<User> users = userMapper.queryUsers(username, orgId);
 		if (users == null) {
 			throw new DemoException(HttpStatus.INTERNAL_SERVER_ERROR, ResponseCode.SELECT_ERROR.getCode(),
 					ResponseCode.SELECT_ERROR.getDec());

@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Api(value = "Organization", description = "组织机构")
-@RequestMapping(value = "/api/orgs")
+@RequestMapping(value = "/api/organizations")
 @RestController
 public class OrganizationController {
 	@Autowired
@@ -124,7 +124,7 @@ public class OrganizationController {
 	 */
 
 	@ApiOperation(value = "查询所有机构", response = Response.class)
-	@GetMapping(value = "/actions/query")
+	@GetMapping(value = "/actions/queryOrganizations")
 	@ApiImplicitParams({ @ApiImplicitParam(value = "上级id", name = "parentId", dataType = "int", required = true), })
 	public Response<List<Organization>> queryOrganizations(@RequestParam(value = "parentId") Integer parentId)
 			throws DemoException {

@@ -15,25 +15,24 @@
 	<select id="get" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
-		from demo_user
+		from ygq_demo_user
 		where id = #{id,jdbcType=INTEGER}
 	</select>
 	<delete id="delete" parameterType="java.lang.Integer">
-		delete from demo_user
+		delete from ygq_demo_user
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
 	<insert id="insert" parameterType="com.primeton.ygq.demo.entity.User"
 		useGeneratedKeys="true" keyProperty="id">
-		insert into demo_user (id, username, password,
+		insert into ygq_demo_user (id, username, password,
 		org_id)
 		values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR},
 		#{password,jdbcType=VARCHAR},
 		#{orgId,jdbcType=INTEGER})
 	</insert>
 	<update id="update" parameterType="com.primeton.ygq.demo.entity.User">
-		update demo_user
+		update ygq_demo_user
 		set username = #{username,jdbcType=VARCHAR},
-		password = #{password,jdbcType=VARCHAR},
 		org_id = #{orgId,jdbcType=INTEGER}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
@@ -43,7 +42,7 @@
 		resultType="com.primeton.ygq.demo.entity.User">
 		select
 		u.id,u.username,u.org_id as orgId, o.org_name as orgName
-		FROM demo_user as u join demo_organization as o
+		FROM ygq_demo_user as u join ygq_demo_organization as o
 		where 1=1
 		AND u.org_id = o.org_id
 		<if test="username != null and username != ''">
@@ -55,7 +54,7 @@
 	</select>
 	<select id="counts" parameterType="string" resultType="int">
 		select count(1)
-		from demo_user
+		from ygq_demo_user
 		where username =#{username}
 	</select>
 
@@ -63,7 +62,7 @@
 		resultType="com.primeton.ygq.demo.entity.User">
 		select
 		<include refid="Base_Column_List" />
-		from demo_user
+		from ygq_demo_user
 		where username = #{username}
 		and password = #{password}
 	</select>
